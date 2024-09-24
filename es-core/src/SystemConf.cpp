@@ -201,9 +201,6 @@ bool SystemConf::saveSystemConf()
 			fileout << fileLines[i] << "\n";
 	}
 
-	// call flush to sync stream buffer before closing
-	fileout.flush();
-
 	fileout.close();
 
 	/* Copy back the tmp to batocera.conf */
@@ -244,9 +241,6 @@ bool SystemConf::set(const std::string &name, const std::string &value)
 	{
 		confMap[name] = value;
 		mWasChanged = true;
-
-		/* automatically flush changes to file to prevent file corruptions due to HW resets or bugs */
-		saveSystemConf();
 		return true;
 	}
 
